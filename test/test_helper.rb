@@ -12,5 +12,11 @@ require 'minitest/mock'
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
-  end
+
+  # parallelize_setup do |worker|
+  #   # For Searchkick
+  #   Searchkick.index_suffix = worker
+  #   Event.reindex
+  #   Searchkick.disable_callbacks
+  # end
 end
