@@ -24,6 +24,6 @@ module SignInHelper
   end
 end
 
-# class ActionDispatch::IntegrationTest #((2))
-#   include SignInHelper #((3))
-# end
+class ActionDispatch::IntegrationTest #((2))
+  include SignInHelper #((3))
+end
