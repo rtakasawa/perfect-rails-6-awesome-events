@@ -1,14 +1,5 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
-# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
-
 name: Rails Tests
-
 on: [push, pull_request]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,18 +9,18 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6
-    - name: Configure sysctl limits
-      run:
+    - name: Configure sysctl limits #((1))
+      run: |
         sudo swapoff -a
         sudo sysctl -w vm.swappiness=1
         sudo sysctl -w fs.file-max=262144
         sudo sysctl -w vm.max_map_count=262144
-    - name: Run Elasticsearch
-      uses: elasticsearch-with-plugins-action
+    - name: Run Elasticsearch  #((2))
+      uses: perfect-ruby-on-rails/elasticsearch-with-plugins-action@v1
       with:
         stack-version: 7.6.0
         plugins: |
-          analysis-kuromoji
+          analysis-kuromoji #((3))
     - name: Build and test
       env:
         RAILS_ENV: test
